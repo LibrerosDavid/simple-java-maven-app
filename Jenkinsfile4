@@ -42,7 +42,7 @@ pipeline {
           steps {
             script {  
               docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
-                def appmavenjenkins = docker.build("macloujulian/mavenjenkins:${gitcommit}", ".")
+                def appmavenjenkins = docker.build("ebooksjoel/mavenjenkins:${gitcommit}", ".")
                 appmavenjenkins.push()
               }
             }  
@@ -56,13 +56,13 @@ pipeline {
     }
     post {
         success { 
-            slackSend message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+            emailext body: 'job success', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'job success'
         }
         failure {
-            slackSend message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+            emailext body: 'job failure', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'job failure'
         }
         always {
-            slackSend message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+            emailext body: 'job always', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'job always'
         }    
     }
 }
