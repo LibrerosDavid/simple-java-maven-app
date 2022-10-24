@@ -56,13 +56,13 @@ pipeline {
     }
     post {
         success { 
-            emailext body: 'job success', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'job success'
+            emailext body: 'job success', recipientProviders: ['davidunchiha@gmail.com'], subject: 'job success'
         }
         failure {
-            emailext body: 'job failure', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'job failure'
+            emailext body: 'job failure', recipientProviders: ['davidunchiha@gmail.com'], subject: 'job failure'
         }
         always {
-            emailext body: 'job always', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'job always'
+            emailext body: 'job always', recipientProviders: ['davidunchiha@gmail.com'], subject: 'job always'
         }    
     }
 }
